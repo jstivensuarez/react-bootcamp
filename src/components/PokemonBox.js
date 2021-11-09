@@ -24,7 +24,7 @@ const PokemonBox = () => {
                                 <PokemonList isBox/>
                             </Grid>
                             <Grid item xs={8}>
-                                <GeneralInfo />
+                                <GeneralInfo isBox/>
                             </Grid>
                         </Grid>
                     </Grid>
