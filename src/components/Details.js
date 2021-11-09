@@ -24,7 +24,8 @@ function PokemonDetails(props) {
         width: 600,
         height: 450,
         bgcolor: 'background.paper',
-        border: '1px solid #000'
+        border: '1px solid #000',
+        borderRadius: '10px'
     };
 
     const nextPokemon = () => {
@@ -53,13 +54,13 @@ function PokemonDetails(props) {
                     <Grid item container xs={12} direction='row'>
                         <Grid item container xs={8} >
                             <Grid item container xs={12} alignItems='center'>
-                                <Grid item xs={2}>
+                                <Grid item xs={2} className='center-element'>
                                     <IconButton
                                         onClick={previousPokemon} color='primary'>
                                         <BackIcon />
                                     </IconButton>
                                 </Grid>
-                                <Grid item xs={8}>
+                                <Grid item xs={8} className='center-element'>
                                     {
                                         <img alt='pokemon' src={showFrontImg ?
                                             selectedPokemon.sprites.front_default
