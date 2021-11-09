@@ -32,7 +32,7 @@ const Pokedex = () => {
                     <Backdrop
                         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 999 }}
                         open={loading}>
-                        <CircularProgress color="inherit" />
+                        <CircularProgress color='inherit' />
                     </Backdrop>
                 </Grid>
                 <Grid item xs={1}></Grid>

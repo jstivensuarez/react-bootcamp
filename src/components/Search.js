@@ -24,7 +24,7 @@ function Search(props) {
                 return { ...pokemon, position: index }
             });
         }
-        eventBus.dispatch("onFilter", list);
+        eventBus.dispatch('onFilter', list);
         dispatch({ type: PokemonContextActions.setFoundPokemon, foundPokemon: list });
     };
 
@@ -37,14 +37,14 @@ function Search(props) {
             <FormControl fullWidth sx={{ m: 1 }} variant='standard'>
                 <Grid container>
                     <Grid item xs={10}>
-                        <TextField fullWidth type="search" onChange={(e) => setKeyword(e.target.value)} />
+                        <TextField fullWidth type='search' onChange={(e) => setKeyword(e.target.value)} />
                     </Grid>
                     <Grid item container xs={2} >
                         <Grid item xs={6}>
-                            <button className="pokeButton" onClick={filterData}><img alt='search' src={searchImg} /></button>
+                            <button className='pokeButton' onClick={filterData}><img alt='search' src={searchImg} /></button>
                         </Grid>
                         <Grid item xs={6}>
-                            <button className="pokeButton" onClick={changeView}><img alt='change view' src={changeImg} /></button>
+                            <button className='pokeButton' onClick={changeView}><img alt='change view' src={changeImg} /></button>
                         </Grid>
                     </Grid>
                 </Grid>

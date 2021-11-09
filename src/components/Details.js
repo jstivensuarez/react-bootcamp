@@ -53,22 +53,22 @@ function PokemonDetails(props) {
     return (
         <Modal {...props} >
             <Box sx={{ ...style }}>
-                <Grid container direction="column">
-                    <Grid item xs={12}>
+                <Grid container direction='column'>
+                    <Grid item xs={12} className='center-text'>
                         <h2>{selectedPokemon.name}</h2>
                     </Grid>
-                    <Grid item container xs={12} direction="row">
+                    <Grid item container xs={12} direction='row'>
                         <Grid item container xs={7}>
-                            <Grid item container xs={12} alignItems="center">
+                            <Grid item container xs={12} alignItems='center'>
                                 <Grid item xs={2}>
                                     <IconButton
-                                        onClick={previousPokemon} color="primary">
+                                        onClick={previousPokemon} color='primary'>
                                         <BackIcon />
                                     </IconButton>
                                 </Grid>
                                 <Grid item xs={8}>
                                     {
-                                        <img alt="pokemon" src={showFrontImg ?
+                                        <img alt='pokemon' src={showFrontImg ?
                                             selectedPokemon.sprites.front_default
                                             : selectedPokemon.sprites.back_default
                                         } height={200} width={200} />
@@ -76,7 +76,7 @@ function PokemonDetails(props) {
                                 </Grid>
                                 <Grid item xs={2}>
                                     <IconButton
-                                        onClick={nextPokemon} color="primary">
+                                        onClick={nextPokemon} color='primary'>
                                         <ForwardIcon />
                                     </IconButton>
                                 </Grid>
@@ -84,7 +84,7 @@ function PokemonDetails(props) {
                             <Grid item xs={12} >
                                 <div style={{ textAlign: 'center' }}>
                                     <IconButton
-                                        onClick={() => setShowFront(!showFrontImg)} color="primary">
+                                        onClick={() => setShowFront(!showFrontImg)} color='primary'>
                                         <SyncIcon />
                                     </IconButton>
                                 </div>
