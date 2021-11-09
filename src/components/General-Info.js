@@ -7,6 +7,7 @@ import detailsImg from '../images/details.PNG'
 import catchImg from '../images/catch.PNG'
 import releaseImg from '../images/release.PNG'
 import PokemonContextActions from '../context/actions';
+import PokemonButtons from './PokemonButtons';
 
 function GeneralInfo(props) {
 
@@ -24,23 +25,8 @@ function GeneralInfo(props) {
         }
     }
 
-    const onRelease = () => {
-        dispatch({ type: PokemonContextActions.removePokemonFromBox });
-    }
-
-    const getCatchButton = () => {
-        return props.isBox ?
-            <>
-                <button className='pokeButton' onClick={onRelease}><img src={releaseImg} /></button>
-                <span className='lbl-button'>RELEASE</span>
-            </>
-            :
-            <>
-                <button className='pokeButton' onClick={onCatch}><img src={catchImg} /></button>
-                <span className='lbl-button'>CATCH</span>
-            </>
-    }
-
+    const onRelease = () => dispatch({ type: PokemonContextActions.removePokemonFromBox });
+    
     return (
         <>
             {
@@ -49,7 +35,7 @@ function GeneralInfo(props) {
                     <Grid container>
                         <Grid item container xs={9} direction='column' alignItems='center'>
                             <Grid item>
-                                <h1>{selectedPokemon.name}</h1>
+                                <h1 className='pokemon-title'>{selectedPokemon.name}</h1>
                             </Grid>
                             <Grid item>
                                 <img alt='pokemon' src={selectedPokemon.sprites.front_default} height={200} width={200} />
@@ -57,12 +43,12 @@ function GeneralInfo(props) {
                         </Grid>
                         <Grid item container xs={3} direction="row" alignItems='flex-end'>
                             <Grid item xs={6} className='center-text'>
-                                {getCatchButton()}
+                                <PokemonButtons {...props}/>
                             </Grid>
                             <Grid item xs={6} className='center-text' >
                                 <button className='pokeButton' onClick={onOpenModal}><img src={detailsImg} /></button>
-                                <span className='lbl-button'>DETAILS</span>
-                                <PokemonDetails open={openModal} onClose={onCloseModal} />
+                                <p className='lbl-button'>DETAILS</p>
+                                <PokemonDetails open={openModal} onClose={onCloseModal} {...props}/>
                             </Grid>
                         </Grid>
                     </Grid>

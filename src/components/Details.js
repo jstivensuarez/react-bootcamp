@@ -9,6 +9,7 @@ import BackIcon from '@mui/icons-material/ArrowBack';
 import ForwardIcon from '@mui/icons-material/ArrowForward';
 import eventBus from '../eventBus';
 import PokemonContextActions from '../context/actions';
+import PokemonButtons from './PokemonButtons';
 
 function PokemonDetails(props) {
 
@@ -21,7 +22,7 @@ function PokemonDetails(props) {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 600,
-        height: 400,
+        height: 450,
         bgcolor: 'background.paper',
         border: '1px solid #000'
     };
@@ -31,7 +32,7 @@ function PokemonDetails(props) {
         if (position > (foundPokemon.length - 1)) {
             position = 0;
         }
-        updateSelectedPokemonByPosition(position)
+        eventBus.dispatch("onChangePosition", foundPokemon[position]);
     }
 
     const previousPokemon = () => {
@@ -39,15 +40,7 @@ function PokemonDetails(props) {
         if (position < 0) {
             position = foundPokemon.length - 1;
         }
-        updateSelectedPokemonByPosition(position);
-    }
-
-    const updateSelectedPokemonByPosition = (position) => {
-        if (foundPokemon[position].id) {
-            dispatch({ type: PokemonContextActions.setSelectedPokemon, selectedPokemon: foundPokemon[position] });
-        } else {
-            eventBus.dispatch("onChangePosition", foundPokemon[position]);
-        }
+        eventBus.dispatch("onChangePosition", foundPokemon[position]);
     }
 
     return (
@@ -55,10 +48,10 @@ function PokemonDetails(props) {
             <Box sx={{ ...style }}>
                 <Grid container direction='column'>
                     <Grid item xs={12} className='center-text'>
-                        <h2>{selectedPokemon.name}</h2>
+                        <h2 className='pokemon-title'>{selectedPokemon.id} - {selectedPokemon.name}</h2>
                     </Grid>
                     <Grid item container xs={12} direction='row'>
-                        <Grid item container xs={7}>
+                        <Grid item container xs={8} >
                             <Grid item container xs={12} alignItems='center'>
                                 <Grid item xs={2}>
                                     <IconButton
@@ -90,7 +83,7 @@ function PokemonDetails(props) {
                                 </div>
                             </Grid>
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <ul style={{ height: '250px', overflow: 'scroll', overflowX: 'hidden' }}>
                                 {
                                     selectedPokemon.moves.map((m, index) =>
@@ -98,6 +91,21 @@ function PokemonDetails(props) {
                                     )
                                 }
                             </ul>
+                        </Grid>
+                    </Grid>
+                    <Grid item container>
+                        <Grid item xs={8} className='center-text'>
+                            <h3 className='pokemon-type blue-color'>
+                                {
+                                    selectedPokemon.types
+                                    .map((t, index) => t.type.name)
+                                    .join(' - ')
+                                }
+
+                            </h3>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PokemonButtons {...props} />
                         </Grid>
                     </Grid>
                 </Grid>

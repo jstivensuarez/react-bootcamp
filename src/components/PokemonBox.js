@@ -11,20 +11,20 @@ const PokemonBox = () => {
     const { state: { loading } } = useContext(PokemonContext);
 
     return (
-        <>  
+        <>
             <Grid container>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={10}>
                     <Grid item spacing={2} container>
                         <Grid item container>
-                            <Search isBox returnPath='/'/>
+                            <Search isBox returnPath='/' />
                         </Grid>
                         <Grid item spacing={2} container>
                             <Grid item xs={4}>
-                                <PokemonList isBox/>
+                                <PokemonList isBox />
                             </Grid>
                             <Grid item xs={8}>
-                                <GeneralInfo isBox/>
+                                <GeneralInfo isBox />
                             </Grid>
                         </Grid>
                     </Grid>

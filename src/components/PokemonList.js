@@ -67,7 +67,7 @@ function PokemonList(props) {
                 bgcolor: 'background.paper',
                 position: 'relative',
                 overflow: 'auto',
-                maxHeight: 300
+                maxHeight: 270
             }}>
             {
                 (foundPokemon && foundPokemon.length) ? foundPokemon.map((pokemon, index) =>
