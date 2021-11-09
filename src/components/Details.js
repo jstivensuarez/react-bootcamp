@@ -31,7 +31,7 @@ function PokemonDetails(props) {
         if (position > (foundPokemon.length - 1)) {
             position = 0;
         }
-        updateSelectedPokemon(position)
+        updateSelectedPokemonByPosition(position)
     }
 
     const previousPokemon = () => {
@@ -39,10 +39,10 @@ function PokemonDetails(props) {
         if (position < 0) {
             position = foundPokemon.length - 1;
         }
-        updateSelectedPokemon(position);
+        updateSelectedPokemonByPosition(position);
     }
 
-    const updateSelectedPokemon = (position) => {
+    const updateSelectedPokemonByPosition = (position) => {
         if (foundPokemon[position].id) {
             dispatch({ type: PokemonContextActions.setSelectedPokemon, selectedPokemon: foundPokemon[position] });
         } else {

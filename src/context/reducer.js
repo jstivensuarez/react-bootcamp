@@ -18,6 +18,17 @@ const pokemonReducer = (state, action) => {
         ...state,
         boxPokemon: [...state.boxPokemon, action.newPokemon]
       };
+    case PokemonContextActions.removePokemonFromBox:
+      const newList = state.boxPokemon.filter(p => p.name !== state.selectedPokemon.name)
+        .map((pokemon, index) => {
+          return { ...pokemon, position: index }
+        });
+      return {
+        ...state,
+        boxPokemon: newList,
+        foundPokemon: newList,
+        selectedPokemon: newList[0] ? newList[0] : {}
+      };
     case PokemonContextActions.setSelectedPokemon:
       return {
         ...state,
