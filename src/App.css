@@ -8,8 +8,14 @@
 }
 
 .pokeButton img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
+  cursor: pointer;
+}
+
+.pokeButton img:active {
+  box-shadow: 0 3px #666;
+  transform: translateY(3px);
 }
 
 .lbl-button {
@@ -17,6 +23,7 @@
   font-weight: 700;
   font-size: 80%;
   margin: 0;
+  cursor: pointer;
 }
 
 .center-text {

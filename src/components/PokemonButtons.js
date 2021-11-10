@@ -3,6 +3,7 @@ import { PokemonContext } from '../context/context';
 import catchImg from '../images/catch.PNG'
 import releaseImg from '../images/release.PNG'
 import PokemonContextActions from '../context/actions';
+import eventBus from '../eventBus';
 
 function PokemonButtons(props) {
 
@@ -12,10 +13,17 @@ function PokemonButtons(props) {
         if (!boxPokemon.find(p => p.id === selectedPokemon.id)) {
             const newPokemon = { ...selectedPokemon, position: boxPokemon.length }
             dispatch({ type: PokemonContextActions.setBoxPokemon, newPokemon });
+            eventBus.dispatch('showMessage', { message: `¡${newPokemon.name} is your new pokemon!` });
+        } else {
+            eventBus.dispatch('showMessage', { message: `You already have ${selectedPokemon.name}...`, type: 'warning' });
         }
     }
 
-    const onRelease = () => dispatch({ type: PokemonContextActions.removePokemonFromBox });
+    const onRelease = () => {
+        const pokemonName = selectedPokemon.name;
+        dispatch({ type: PokemonContextActions.removePokemonFromBox });
+        eventBus.dispatch('showMessage', { message: `¡${pokemonName} was released!` });
+    }
 
     return (
         <>
