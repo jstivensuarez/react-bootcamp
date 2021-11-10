@@ -33,7 +33,7 @@ function GeneralInfo(props) {
                 selectedPokemon.name &&
                 <Paper sx={{ p: 1 }}>
                     <Grid container>
-                        <Grid item container xs={9} direction='column' alignItems='center'>
+                        <Grid item container xs={10} direction='column' alignItems='center'>
                             <Grid item>
                                 <h1 className='pokemon-title'>{selectedPokemon.name}</h1>
                             </Grid>
@@ -41,7 +41,7 @@ function GeneralInfo(props) {
                                 <img alt='pokemon' src={selectedPokemon.sprites.front_default} height={200} width={200} />
                             </Grid>
                         </Grid>
-                        <Grid item container xs={3} direction="row" alignItems='flex-end'>
+                        <Grid item container xs={2} direction="row" alignItems='flex-end'>
                             <Grid item xs={6} className='center-text'>
                                 <PokemonButtons {...props}/>
                             </Grid>
