@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { PokemonContext } from '../context/context';
 import catchImg from '../images/catch.PNG'
 import releaseImg from '../images/release.PNG'
@@ -31,14 +31,14 @@ function PokemonButtons(props) {
                 props.isBox ?
                     <>
                         <div className='center-text'>
-                            <button className='pokeButton' onClick={onRelease}><img src={releaseImg} /></button>
+                            <button className='pokeButton' onClick={onRelease}><img src={releaseImg} alt='release button' /></button>
                             <p className='lbl-button'>RELEASE</p>
                         </div>
                     </>
                     :
                     <>
                         <div className='center-text'>
-                            <button className='pokeButton' onClick={onCatch}><img src={catchImg} /></button>
+                            <button className='pokeButton' onClick={onCatch}><img src={catchImg} alt='catch button' /></button>
                             <p className='lbl-button'>CATCH</p>
                         </div>
                     </>

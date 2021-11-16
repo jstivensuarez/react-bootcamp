@@ -8,13 +8,12 @@ import SyncIcon from '@mui/icons-material/Sync';
 import BackIcon from '@mui/icons-material/ArrowBack';
 import ForwardIcon from '@mui/icons-material/ArrowForward';
 import eventBus from '../eventBus';
-import PokemonContextActions from '../context/actions';
 import PokemonButtons from './PokemonButtons';
 import typeColors from '../typeColors';
 
 function PokemonDetails(props) {
 
-    const { state: { foundPokemon, selectedPokemon }, dispatch } = useContext(PokemonContext);
+    const { state: { foundPokemon, selectedPokemon } } = useContext(PokemonContext);
     const [showFrontImg, setShowFront] = useState(true);
 
     const style = {

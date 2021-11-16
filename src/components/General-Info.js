@@ -1,22 +1,31 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { PokemonContext } from '../context/context';
 import PokemonDetails from './Details';
 import detailsImg from '../images/details.PNG'
-import catchImg from '../images/catch.PNG'
-import releaseImg from '../images/release.PNG'
-import PokemonContextActions from '../context/actions';
 import PokemonButtons from './PokemonButtons';
 import eventBus from '../eventBus';
 import IconButton from '@mui/material/IconButton';
 import BackIcon from '@mui/icons-material/ArrowBack';
 import ForwardIcon from '@mui/icons-material/ArrowForward';
+import typeColors from '../typeColors';
 
 function GeneralInfo(props) {
 
-    const { state: { selectedPokemon, boxPokemon, foundPokemon }, dispatch } = useContext(PokemonContext);
+    const { state: { selectedPokemon, boxPokemon, foundPokemon }} = useContext(PokemonContext);
     const [openModal, setOpenModal] = useState(false);
+    const [border, setBorder] = useState('1px solid black');
+    const [titleStyle, setTitleStyle] = useState({
+        backgroundColor: 'white',
+        color: 'black',
+        borderRadius: '10px',
+        padding: '5px'
+    });
+
+    useEffect(() => {
+        getBorderColor();
+    }, [boxPokemon]);
 
     const onOpenModal = () => setOpenModal(true);
 
@@ -38,25 +47,59 @@ function GeneralInfo(props) {
         eventBus.dispatch("onChangePosition", foundPokemon[position]);
     }
 
+    const getBorderColor = () => {
+        if (props.isBox) {
+            const types = boxPokemon.map(p => p.types[0].type.name);
+            const color = mode(types);
+            if (color) {
+                const newBorder = '5px solid ' + typeColors[color];
+                setBorder(newBorder);
+                setTitleStyle({ ...titleStyle, backgroundColor: typeColors[color], color: 'white' });
+            }
+        }
+    }
+
+    const mode = (array) => {
+        if (array.length === 0)
+            return null;
+        var modeMap = {};
+        var maxEl = array[0], maxCount = 1;
+        for (var i = 0; i < array.length; i++) {
+            var el = array[i];
+            if (modeMap[el] == null)
+                modeMap[el] = 1;
+            else
+                modeMap[el]++;
+            if (modeMap[el] > maxCount) {
+                maxEl = el;
+                maxCount = modeMap[el];
+            }
+        }
+        return maxEl;
+    }
+
+    const paperStyle = {
+        border: border,
+    }
 
     return (
         <>
             {
                 selectedPokemon.name &&
-                <Paper sx={{ p: 1 }}>
+                <Paper sx={{ p: 1 }} style={paperStyle}>
                     <Grid container>
                         <Grid item container xs={10} direction='column' alignItems='center'>
                             <Grid item>
-                                <h1>{selectedPokemon.name}</h1>
+                                <h1 style={titleStyle}>{selectedPokemon.name}</h1>
                             </Grid>
                             <Grid item container alignItems='center' direction='row'>
-                                <Grid item xs={3}  className='center-element'>
+                                <Grid item xs={3} className='center-element'>
                                     <IconButton
                                         onClick={previousPokemon} color='primary'>
                                         <BackIcon />
                                     </IconButton>
                                 </Grid>
-                                <Grid item xs={6}  className='center-element'>
+                                <Grid item xs={6} className='center-element'>
                                     <img alt='pokemon' src={selectedPokemon.sprites.front_default} height={'200px'} width={'200px'} />
                                 </Grid>
                                 <Grid item xs={3}>
@@ -72,7 +115,7 @@ function GeneralInfo(props) {
                                 <PokemonButtons {...props} />
                             </Grid>
                             <Grid item xs={6} className='center-text' >
-                                <button className='pokeButton' onClick={onOpenModal}><img src={detailsImg} /></button>
+                                <button className='pokeButton' onClick={onOpenModal}><img src={detailsImg} alt='details button'/></button>
                                 <p className='lbl-button'>DETAILS</p>
                                 <PokemonDetails open={openModal} onClose={onCloseModal} {...props} />
                             </Grid>

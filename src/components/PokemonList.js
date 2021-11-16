@@ -10,7 +10,7 @@ import eventBus from '../eventBus';
 
 function PokemonList(props) {
 
-    const { state: { loading, foundPokemon, selectedPokemon, boxPokemon }, dispatch } = useContext(PokemonContext);
+    const { state: { loading, foundPokemon, boxPokemon }, dispatch } = useContext(PokemonContext);
 
     useEffect(() => {
         eventBus.on("onFilter", (foundList) => onFilterPokemon(foundList));

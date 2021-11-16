@@ -16,7 +16,6 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
 
 function Search(props) {
 
@@ -65,10 +64,10 @@ function Search(props) {
     const orderPokemon = (criteriaItem) => {
         dispatch({ type: PokemonContextActions.setLoading, loading: true });
         let newList = [];
-        if (criteriaItem == 'name') {
+        if (criteriaItem === 'name') {
             newList = boxPokemon.sort((a, b) => a.name.localeCompare(b.name));
         } else
-            if (criteriaItem == 'type') {
+            if (criteriaItem === 'type') {
                 newList = boxPokemon.sort((a, b) => a.types[0].type.name.localeCompare(b.types[0].type.name));
             } else {
                 newList = boxPokemon;
