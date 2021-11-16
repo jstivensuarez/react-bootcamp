@@ -93,39 +93,42 @@ function Search(props) {
                         <TextField fullWidth type='search' onChange={(e) => setKeyword(e.target.value)} />
                     </Grid>
                     <Grid item container xs={2} >
-                        <Grid item container xs={6} direction='row'>
-                            {
-                                props.isBox &&
-                                <Grid item xs={6}>
-                                    <Button ref={anchorRef} onClick={handleToggle} className='pokeButton'>
-                                        <img alt='orderby' src={orderbyImg} />
-                                    </Button>
-                                    <Popper open={openMenu} anchorEl={anchorRef.current} transition>
-                                        {({ TransitionProps, placement }) => (
-                                            <Grow
-                                                {...TransitionProps}
-                                                style={{
-                                                    transformOrigin:
-                                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                                }}>
-                                                <Paper>
-                                                    <ClickAwayListener onClickAway={handleClose}>
-                                                        <MenuList autoFocusItem={openMenu}>
-                                                            <MenuItem data-name={'name'} onClick={(e) => handleClose(e, 'name')}>Name</MenuItem>
-                                                            <MenuItem data-type={'type'} onClick={(e) => handleClose(e, 'type')}>Type</MenuItem>
-                                                        </MenuList>
-                                                    </ClickAwayListener>
-                                                </Paper>
-                                            </Grow>
-                                        )}
-                                    </Popper>
-                                </Grid>
-                            }
+                        <Grid item container xs={8} direction='row'>
+                            <Grid item xs={6}>
+                                {
+                                    props.isBox &&
+                                    <>
+                                        <Button ref={anchorRef} onClick={handleToggle} className='pokeButton'>
+                                            <img alt='orderby' src={orderbyImg} />
+                                        </Button>
+                                        <Popper open={openMenu} anchorEl={anchorRef.current} transition>
+                                            {({ TransitionProps, placement }) => (
+                                                <Grow
+                                                    {...TransitionProps}
+                                                    style={{
+                                                        transformOrigin:
+                                                            placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                                    }}>
+                                                    <Paper>
+                                                        <ClickAwayListener onClickAway={handleClose}>
+                                                            <MenuList autoFocusItem={openMenu}>
+                                                                <MenuItem data-name={'name'} onClick={(e) => handleClose(e, 'name')}>Name</MenuItem>
+                                                                <MenuItem data-type={'type'} onClick={(e) => handleClose(e, 'type')}>Type</MenuItem>
+                                                            </MenuList>
+                                                        </ClickAwayListener>
+                                                    </Paper>
+                                                </Grow>
+                                            )}
+                                        </Popper>
+                                    </>
+                                }
+                            </Grid>
+
                             <Grid item xs={6}>
                                 <button className='pokeButton' onClick={filterData}><img alt='search' src={searchImg} /></button>
                             </Grid>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <button className='pokeButton' onClick={changeView}><img alt='change view' src={changeImg} /></button>
                         </Grid>
                     </Grid>

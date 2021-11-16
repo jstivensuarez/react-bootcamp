@@ -8,25 +8,37 @@ import catchImg from '../images/catch.PNG'
 import releaseImg from '../images/release.PNG'
 import PokemonContextActions from '../context/actions';
 import PokemonButtons from './PokemonButtons';
+import eventBus from '../eventBus';
+import IconButton from '@mui/material/IconButton';
+import BackIcon from '@mui/icons-material/ArrowBack';
+import ForwardIcon from '@mui/icons-material/ArrowForward';
 
 function GeneralInfo(props) {
 
-    const { state: { selectedPokemon, boxPokemon }, dispatch } = useContext(PokemonContext);
+    const { state: { selectedPokemon, boxPokemon, foundPokemon }, dispatch } = useContext(PokemonContext);
     const [openModal, setOpenModal] = useState(false);
 
     const onOpenModal = () => setOpenModal(true);
 
     const onCloseModal = () => setOpenModal(false);
 
-    const onCatch = () => {
-        if (!boxPokemon.find(p => p.id === selectedPokemon.id)) {
-            const newPokemon = { ...selectedPokemon, position: boxPokemon.length }
-            dispatch({ type: PokemonContextActions.setBoxPokemon, newPokemon });
+    const nextPokemon = () => {
+        let position = selectedPokemon.position + 1;
+        if (position > (foundPokemon.length - 1)) {
+            position = 0;
         }
+        eventBus.dispatch("onChangePosition", foundPokemon[position]);
     }
 
-    const onRelease = () => dispatch({ type: PokemonContextActions.removePokemonFromBox });
-    
+    const previousPokemon = () => {
+        let position = selectedPokemon.position - 1;
+        if (position < 0) {
+            position = foundPokemon.length - 1;
+        }
+        eventBus.dispatch("onChangePosition", foundPokemon[position]);
+    }
+
+
     return (
         <>
             {
@@ -35,20 +47,34 @@ function GeneralInfo(props) {
                     <Grid container>
                         <Grid item container xs={10} direction='column' alignItems='center'>
                             <Grid item>
-                                <h1 className='pokemon-title'>{selectedPokemon.name}</h1>
+                                <h1>{selectedPokemon.name}</h1>
                             </Grid>
-                            <Grid item>
-                                <img alt='pokemon' src={selectedPokemon.sprites.front_default} height={200} width={200} />
+                            <Grid item container alignItems='center' direction='row'>
+                                <Grid item xs={3}  className='center-element'>
+                                    <IconButton
+                                        onClick={previousPokemon} color='primary'>
+                                        <BackIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xs={6}  className='center-element'>
+                                    <img alt='pokemon' src={selectedPokemon.sprites.front_default} height={'200px'} width={'200px'} />
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <IconButton
+                                        onClick={nextPokemon} color='primary'>
+                                        <ForwardIcon />
+                                    </IconButton>
+                                </Grid>
                             </Grid>
                         </Grid>
                         <Grid item container xs={2} direction="row" alignItems='flex-end'>
                             <Grid item xs={6} className='center-text'>
-                                <PokemonButtons {...props}/>
+                                <PokemonButtons {...props} />
                             </Grid>
                             <Grid item xs={6} className='center-text' >
                                 <button className='pokeButton' onClick={onOpenModal}><img src={detailsImg} /></button>
                                 <p className='lbl-button'>DETAILS</p>
-                                <PokemonDetails open={openModal} onClose={onCloseModal} {...props}/>
+                                <PokemonDetails open={openModal} onClose={onCloseModal} {...props} />
                             </Grid>
                         </Grid>
                     </Grid>
