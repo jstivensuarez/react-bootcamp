@@ -10,6 +10,7 @@ import ForwardIcon from '@mui/icons-material/ArrowForward';
 import eventBus from '../eventBus';
 import PokemonContextActions from '../context/actions';
 import PokemonButtons from './PokemonButtons';
+import typeColors from '../typeColors';
 
 function PokemonDetails(props) {
 
@@ -24,7 +25,7 @@ function PokemonDetails(props) {
         width: 700,
         height: 450,
         bgcolor: 'background.paper',
-        border: '1px solid #000',
+        border: ('5px solid'+ typeColors[selectedPokemon.types[0].type.name]),
         borderRadius: '10px'
     };
 
@@ -99,7 +100,7 @@ function PokemonDetails(props) {
                             <h3 className='pokemon-type blue-color'>
                                 {
                                     selectedPokemon.types
-                                    .map((t, index) => t.type.name)
+                                    .map((t) => t.type.name)
                                     .join(' - ')
                                 }
 
